@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 12pt;
+    color: var(--text-color);
+    text-align: center;
+}
+
+body{
+    min-height: 100vh;
+    background-image: url(Accessories/Bg2.png);
+    background-size: cover;
+    background-position: right;
+    overflow: hidden;
+}
+
+
+:root{
+    --accent-color: #f34a4a;
+    --base-color: #252525;
+    --text-color: #2e2b41;
+    --input-color: #f3f0ff;
+}
+.email-icon{
+    color: var(--input-color);
+}
+
+/* Wrapper styles */
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: var(--base-color);
+    height: 100vh;
+    width: max(30%, 600px);
+    border-radius: 0 20px 20px 0;
+    backdrop-filter: blur(10px);
+}
+/* Wrapper hover effect */
+.wrapper:hover{
+    background-color: var(--input-color);
+}
+
+.wrapper h1{
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+.wrapper p{
+    margin-top: 10px;
+    font-size: 1rem;
+    color: var(--input-color);
+}
+.wrapper a{
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+/* Form styles */
+form{
+    width: min(400px, 100%);
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+form > div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form label{
+    flex-shrink: 0;
+    height: 50px;
+    width: 50px;
+    background-color: var(--accent-color);
+    fill: var(--base-color);         /*fill is used for SVG elements */
+    color: var(--base-color);
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+form input,
+form button{
+    flex-grow: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    font-size: 1rem;
+    font-weight: 400;
+    outline: none;
+}
+
+form input{
+    background-color: var(--input-color);
+    color: var(--text-color);
+}
+
+form input:hover{
+    border-bottom: 2px solid var(--accent-color);
+}
+
+form button{
+    background-color: var(--accent-color);
+    color: var(--input-color);
+    cursor: pointer;
+}
+
+form button:hover{
+    color: var(--base-color);
+    background-color: grey;
+    transform: translate(0, -2px);
+}
+
+/* Form styles */
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Signup</h1>
+        <h2>Welcome</h2>
+        <p id="error-message"></p>
+        <form id="signup-form">
+            <div>
+                <label for="firstname-input">
+                    <img src="Accessories/person_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" alt="">
+                </label>
+
+                <input id="firstname" type="text" required placeholder="Firstname" name="firstname-input">
+            </div>
+
+            <div>
+                <label for="email-input"><span class="email-icon">@</span></label>
+                <input id="email" type="email" required placeholder="Email" name="email-input">
+            </div>
+
+            <div>
+                <label for="password-input"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z"/></svg></label>
+                <input id="password" type="password" required placeholder="Password" name="password-input">
+            </div>
+
+            <div>
+                <label for="repeat-password-input"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z"/></svg></label>
+                <input id="repeat-password" type="password" required placeholder="Repeat Password" name="repeat-password-input">
+            </div>
+
+            <button type="submit">Signup</button>
+        </form>
+
+        <p>Already have an account? <a href="sign-in.html">Login</a></p>
+    </div>
+
+    <!-- <script>
+         const form = document.getElementById('signup-form');
+ const firstnameInput = document.getElementById('firstname');
+ const firstname = document.getElementById('firstname');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const repeatPassword = document.getElementById('repeat-password');
+
+
+form.addEventListener('submit', (e) => {
+   // e.preventDefault(); Prevent Submit
+
+   let errors = [];
+   if (firstnameInput){
+    //If we have a 1st name input, then we are in the signup
+    errors = getSignupErrors(firstnameInput.value, emailInput.value, passwordInput.value, repeatPasswordInput.value);
+   }
+
+   else{
+    // If we don't have a 1st name input, then we are in the login
+    errors = getLoginErrors(emailInput.value, passwordInput.value);
+   }
+
+   if(errors.length > 0){
+    //If there are any errors, prevent form submission
+    e.preventDefault();
+    errorMessage.innerText = errors.join(". ");
+   }
+   
+   function getSignupFormErrors(firstname, email, password, repeatPassword) {
+    let errors = [];
+
+    if (firstname === '' || firstname == null) {
+        errors.push('Firstname is required');
+        firstnameInput.parentElement.classList.add('incorrect');
+    }
+    if (email === '' || email == null) {
+        errors.push('Email is required');
+        emailInput.parentElement.classList.add('incorrect');
+    }
+    if (password === '' || password == null) {
+        errors.push('Password is required');
+        passwordInput.parentElement.classList.add('incorrect');
+    }
+    if (repeatPassword === '' || repeatPassword == null) {
+        errors.push('Repeat Password is required');
+        repeatPasswordInput.parentElement.classList.add('incorrect');
+    }
+    return errors;
+});
+    </script> -->
+</body>
+</html>
