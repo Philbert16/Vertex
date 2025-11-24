@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire With Vertex</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --bg: #070707;
+            --panel: #0f0f0f;
+            --muted: #a6a6a6;
+            --accent: #f11313;
+            --accent-hover: #f53c3c;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-2: rgba(255, 255, 255, 0.04);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        html,
+        body {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(100px);
+            border-radius: 16px;
+            margin: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .image {
+  width: 80px;
+  height: 48px;
+  border-radius: 12px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: glow 2s infinite;
+}
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-login,
+        .btn-register {
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            border: 2px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+        }
+
+        .btn-login:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-register {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-register:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            padding: 80px 0 120px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, white, var(--muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(241, 19, 19, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-placeholder {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--glass), transparent);
+            border: 1px solid rgba(241, 19, 19, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-placeholder svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, white, var(--muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--muted);
+        }
+
+        .why-choose {
+            padding: 80px 40px;
+            background: linear-gradient(180deg, rgba(241, 19, 19, 0.05), transparent);
+            border-radius: 20px;
+            margin-bottom: 80px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .benefit-card {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px 24px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .benefit-card:hover {
+            background: var(--glass-2);
+            border-color: rgba(241, 19, 19, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(241, 19, 19, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .benefit-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .benefit-card p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .services {
+            padding: 80px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--glass), transparent);
+            border: 1px solid rgba(241, 19, 19, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(241, 19, 19, 0.15);
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .service-card p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .service-link:hover {
+            transform: translateX(6px);
+            color: var(--accent-hover);
+        }
+
+        .process {
+            padding: 80px 40px;
+            background: linear-gradient(180deg, transparent, rgba(241, 19, 19, 0.03));
+            border-radius: 20px;
+            margin: 80px 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .step {
+            background: var(--panel);
+            border: 1px solid rgba(241, 19, 19, 0.1);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), #fa0808);
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .testimonials {
+            padding: 80px 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, var(--glass), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            background: var(--glass-2);
+            border-color: var(--accent);
+            transform: translateY(-6px);
+        }
+
+        .stars {
+            font-size: 18px;
+            color: #ffc107;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-card p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author strong {
+            display: block;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-author span {
+            color: var(--accent);
+            font-size: 13px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(241, 19, 19, 0.1), rgba(250, 8, 8, 0.05));
+            border: 2px solid rgba(241, 19, 19, 0.2);
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .cta-content h2 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .cta-content p {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-large,
+        .btn-secondary-large {
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-large {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary-large:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(241, 19, 19, 0.3);
+        }
+
+        .btn-secondary-large {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary-large:hover {
+            background: rgba(241, 19, 19, 0.1);
+        }
+
+        /* .contact {
+            padding: 80px 0;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .contact-item h4 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-item a,
+        .contact-item p {
+            color: var(--muted);
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        } */
+
+        .footer {
+            background: linear-gradient(180deg, var(--panel), var(--bg));
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 80px;
+            padding: 60px 20px 30px;
+            color: var(--muted);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: var(--muted);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 60px 0 80px;
+            }
+
+            .hero-content h1 {
+                font-size: 44px;
+            }
+
+            .section-header h2 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 12px 20px;
+                gap: 16px;
+            }
+
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .why-choose,
+            .process,
+            .cta-section {
+                padding: 60px 20px;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-legal {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 0 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            .benefits-grid,
+            .services-grid,
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary-large,
+            .btn-secondary-large {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hire With Vertex -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="vertex.html"><img class="image" src="images/Vertex logo Concepts Bis choice.jpg" alt=""></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="vertex.html#jobs">Job Seekers</a></li>
+                <li><a href="vertex.html#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="sign-in.html" class="btn-login">Sign In</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Build Your Dream Team with Vertex</h1>
+                <p>Access vetted, top-tier technology talent in days, not months. Scale fast with specialists who are
+                    ready to impact.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Schedule a Consultation</button>
+                    <button class="btn-secondary">See Our Process</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-placeholder">
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="rgba(241, 19, 19, 0.1)" rx="20" />
+                        <circle cx="100" cy="80" r="30" fill="rgba(241, 19, 19, 0.3)" />
+                        <circle cx="300" cy="100" r="40" fill="rgba(241, 19, 19, 0.2)" />
+                        <rect x="50" y="150" width="300" height="120" fill="rgba(255, 255, 255, 0.05)" rx="10" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-choose" id="why">
+            <div class="section-header">
+                <h2>Why Choose Vertex?</h2>
+                <p>We're not just a recruitment agency—we're your talent partner</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Get qualified candidates in days, not weeks. Our streamlined process means you spend less time
+                        waiting and more time hiring.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Perfect Match</h3>
+                    <p>Technical expertise meets cultural fit. We assess both skills and compatibility to ensure
+                        long-term success.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3>Data-Driven</h3>
+                    <p>Market intelligence and skills assessment guide every placement. We remove guesswork from hiring.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Full Support</h3>
+                    <p>From offer negotiation to onboarding, we're with you every step. Our success is measured by your
+                        retention.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌟</div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>Every candidate is vetted and assessed. We only present professionals ready to make immediate
+                        impact.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Scale Your Team</h3>
+                    <p>Whether you need one specialist or a full team, we adapt to your growth trajectory and business
+                        needs.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="section-header">
+                <h2>Our Hiring Services</h2>
+                <p>Solutions tailored to your talent needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Permanent Placement</h3>
+                    <p>Find your next full-time team member. We handle sourcing, screening, and placement, with ongoing
+                        support post-hire.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3>Contract Staffing</h3>
+                    <p>Need flexible talent? Get contractors for specific projects or peak periods without the long-term
+                        commitment.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3>Executive Search</h3>
+                    <p>Recruiting C-level and senior technical leaders. We tap our extensive network to find visionary
+                        leaders.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3>Team Augmentation</h3>
+                    <p>Scale your existing team quickly. Perfect for companies ramping up projects or entering new
+                        markets.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3>Bespoke Programs</h3>
+                    <p>Custom recruitment strategies aligned with your roadmap. We build solutions that grow with you.
+                    </p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3>Talent Development</h3>
+                    <p>Beyond hiring—we offer upskilling programs and technical assessments to build stronger teams
+                        long-term.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="process">
+            <div class="section-header">
+                <h2>Our Proven Process</h2>
+                <p>From discovery to onboarding—structured, transparent, and fast</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Discovery</h3>
+                    <p>We start with an in-depth conversation to understand your role requirements, team culture, and
+                        business goals.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Sourcing</h3>
+                    <p>Our specialists tap our network and databases to identify candidates with the right technical
+                        skills and cultural fit.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Screening & Assessment</h3>
+                    <p>Technical evaluation, interviews, and skills assessment ensure every candidate meets your
+                        standards.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Presentation</h3>
+                    <p>We deliver a curated shortlist of top candidates, ready for your interviews—no filler candidates.
+                    </p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Negotiation & Offer</h3>
+                    <p>We handle offer management, negotiation, and closure to ensure smooth transitions for both
+                        parties.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>Onboarding & Support</h3>
+                    <p>We remain engaged through onboarding and beyond, ensuring the hire is successful and lasting.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="section-header">
+                <h2>What Our Clients Say</h2>
+                <p>Real results from companies who've partnered with us</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Vertex helped us scale our engineering team from 5 to 25 people in 6 months. The quality of
+                        candidates was exceptional, and the process was incredibly smooth."</p>
+                    <div class="testimonial-author">
+                        <strong>Sarah Chen</strong>
+                        <span>CTO, FinTech Startup</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"We needed a Senior DevOps Engineer within 3 weeks for a critical project. Vertex delivered
+                        someone perfect within 10 days. Their vetting process is rigorous."</p>
+                    <div class="testimonial-author">
+                        <strong>Marcus Johnson</strong>
+                        <span>VP Engineering, SaaS Company</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Beyond recruitment, Vertex's team became strategic partners in our hiring strategy. They
+                        understood our culture as well as our tech needs."</p>
+                    <div class="testimonial-author">
+                        <strong>Elena Rodriguez</strong>
+                        <span>Founder & CEO, AI Startup</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to Build Your Dream Team?</h2>
+                <p>Let's discuss your talent needs and how Vertex can accelerate your hiring.</p>
+                <div class="cta-buttons">
+                    <button class="btn-primary-large">Schedule a Consultation</button>
+                    <button class="btn-secondary-large">Download Our Process Guide</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- <section class="contact" id="contact">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Questions? We're here to help.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <a href="mailto:hello@vertex.com">hello@vertex.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Phone</h4>
+                        <a href="tel:+1234567890">+1 (234) 567-890</a>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Address</h4>
+                        <p>Leigh, 15 Roman Rd</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Hours</h4>
+                        <p>Mon - Fri: 9AM - 6PM EST</p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Vertex</h4>
+                <p>Vertex is a specialist technology talent partner connecting ambitious companies with top engineering
+                    talent.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">LinkedIn</a>
+                    <a href="#" class="social-icon">Twitter</a>
+                    <a href="#" class="social-icon">GitHub</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="vertex.html">For Job Seekers</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Permanent Placement</a></li>
+                    <li><a href="#">Contract Staffing</a></li>
+                    <li><a href="#">Executive Search</a></li>
+                    <li><a href="#">Team Augmentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello@vertex.com">hello@vertex.com</a></li>
+                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    <li>Leigh, 15 Roman Rd</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vertex. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
