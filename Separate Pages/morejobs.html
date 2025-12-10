@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find | Jobs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    html,
+    body {
+      /* height: 100%; */
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
+      color: white;
+      padding: 20px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    :root {
+      --bg: #070707;
+      --panel: #0f0f0f;
+      --muted: #a6a6a6;
+      --accent: #f11313;
+      --accent-hover: #f53c3c;
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-2: rgba(255, 255, 255, 0.04);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --gradient: linear-gradient(135deg, var(--accent)), #fa0808;
+    }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @keyframes fadIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px #f11313;
+      }
+
+      50% {
+        box-shadow: 0 0 30px #f53c3c;
+      }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(100px);
+      border-radius: 16px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    nav a {
+      color: #a6a6a6;
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+
+    nav .list:hover {
+      border-bottom: #fff 2px solid;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .active {
+      transform: translateY(-2px);
+    }
+
+    nav a.active {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .auth-buttons {
+      margin-right: 10px;
+    }
+
+    .image {
+      width: 80px;
+      height: 48px;
+      border-radius: 12px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: glow 2s infinite;
+    }
+
+    .login-btn {
+      display: inline-block;
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: #fff;
+      color: var(--accent);
+      font-weight: 600;
+      /* animate only transform for better performance and predictable behavior */
+      transition: transform 0.3s ease;
+      /* hint to the browser this will change, for smoother animations */
+      /* will-change: transform; */
+    }
+
+    .login-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .signup-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+    }
+
+    .signup-btn:hover {
+      transform: scale(1.1);
+    }
+
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      margin-top: 40px;
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .job {
+      border: 1px solid #eee;
+      padding: 14px;
+      border-radius: 10px;
+      background: var(--white);
+    }
+
+    .job p {
+      color: #a39b9b;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .job h5 {
+      margin: 0 0 6px 0;
+    }
+
+    .job .meta {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .job .apply {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tag {
+      background: #f8f8f8;
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #444;
+      font-size: 13px;
+    }
+
+    .find-more:hover {
+      transform: translateY(-3px);
+      color: #fa0808;
+      border: 2px solid #fa0808;
+      background-color: #fff;
+    }
+
+    .lead {
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      color: #fa0808;
+      border: 2px solid #fa0808;
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    .apply a {
+      text-decoration: none;
+    }
+
+    .footer {
+      background: linear-gradient(180deg, var(--panel), var(--bg));
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 80px;
+      padding: 60px 20px 30px;
+      color: var(--muted);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h4 {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-icon:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-legal a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="main-container">
+      <div class="logo">
+        <a href="vertex-home.html">
+          <img class="image" src="/Vertex/Separate Pages/images/Vertex logo Concepts Bis choice.jpg" alt="Vertex Logo" />
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="vertex.html" class="list">Home</a></li>
+        <li><a href="jobseekers.html" class="list">Jobs Seekers</a></li>
+        <li><a class="list" href="#employers">Employers</a></li>
+        <li><a class="list" href="#about">About Us</a></li>
+        <li><a class="list" href="#get-in-touch">Get in Touch</a></li>
+        <li><a class="active" href="findjobs.html">Find Jobs</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="sign-in.html" class="btn login-btn">Sign In</a>
+        <a href="register.html" class="btn signup-btn">Register</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- JOB LISTINGS -->
+    <section id="jobs" class="section">
+      <div class="container-3">
+        <h3 id="jobs-heading">Current Vacancies</h3>
+        <p class="lead">Browse a curated list of roles — updated daily.</p>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Senior Frontend Engineer</h5>
+            <div class="meta">TechCorp • London • Full-time</div>
+            <p class="job-desc">Build and ship high-quality user interfaces using React and TypeScript. Collaborate
+              with designers and backend engineers to deliver performant, accessible features.</p>
+            <div class="apply">
+              <div class="tag">$95k–$115k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Data Engineer</h5>
+            <div class="meta">FinServe • Remote • Full-time</div>
+            <p class="job-desc">Design and maintain scalable ETL and data pipelines, optimise data warehouses, and
+              enable analytics for data-driven decisions.</p>
+            <div class="apply">
+              <div class="tag">Competitive</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Senior DevOps Engineer</h5>
+            <div class="meta">CloudWorks • Accra • Contract</div>
+            <p class="job-desc">Architect and automate CI/CD pipelines, infrastructure-as-code, cloud deployments, and
+              observability for production systems.</p>
+            <div class="apply">
+              <div class="tag">£Hourly / Project</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Senior Backend Engineer</h5>
+            <div class="meta">TechCorp • London • Full-time</div>
+            <p class="job-desc">Design and implement scalable microservices and APIs (Node.js/Go). Optimise databases,
+              caching, and ensure fault tolerance for high-traffic systems.</p>
+            <div class="apply">
+              <div class="tag">$95k–$115k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Machine Learning Engineer</h5>
+            <div class="meta">FinServe • Remote • Full-time</div>
+            <p class="job-desc">Develop, train and productionise ML models. Collaborate with data scientists to deploy
+              models with monitoring, feature stores, and model governance.</p>
+            <div class="apply">
+              <div class="tag">Competitive</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Site Reliability Engineer (SRE)</h5>
+            <div class="meta">CloudWorks • Accra • Contract</div>
+            <p class="job-desc">Improve system reliability through automation, incident response tooling, capacity
+              planning, and performance tuning for production services.</p>
+            <div class="apply">
+              <div class="tag">£Hourly / Project</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Full-Stack Engineer</h5>
+            <div class="meta">StartupHub • Berlin • Full-time</div>
+            <p class="job-desc">Build end-to-end web applications using modern frameworks. Work with React, Node.js, and
+              PostgreSQL to ship features from frontend to database.</p>
+            <div class="apply">
+              <div class="tag">$72k–$88k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Cloud Architect</h5>
+            <div class="meta">EnterpriseCorp • New York • Full-time</div>
+            <p class="job-desc">Design and implement scalable cloud infrastructure on AWS/Azure. Lead cloud migration
+              projects and establish best practices for security and compliance.</p>
+            <div class="apply">
+              <div class="tag">$120k–$145k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Mobile App Developer (iOS/Android)</h5>
+            <div class="meta">AppStudio • San Francisco • Full-time</div>
+            <p class="job-desc">Develop native iOS and Android applications using Swift and Kotlin. Collaborate with
+              product and design teams to deliver engaging mobile experiences.</p>
+            <div class="apply">
+              <div class="tag">$120k–$150k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Solutions Architect</h5>
+            <div class="meta">TechConsult • Singapore • Full-time</div>
+            <p class="job-desc">Design technical solutions for enterprise clients. Gather requirements, propose
+              architectures, and lead implementation across cross-functional teams.</p>
+            <div class="apply">
+              <div class="tag">Competitive</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>QA Automation Engineer</h5>
+            <div class="meta">TestPro • Toronto • Full-time</div>
+            <p class="job-desc">Design and implement automated test suites using Selenium, Cypress, or Playwright.
+              Ensure product quality and reliability through continuous testing.</p>
+            <div class="apply">
+              <div class="tag">$63k–$78k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Cybersecurity Engineer</h5>
+            <div class="meta">SecureNet • Amsterdam • Full-time</div>
+            <p class="job-desc">Identify and remediate security vulnerabilities. Conduct penetration testing, implement
+              hardening measures, and develop security policies.</p>
+            <div class="apply">
+              <div class="tag">$100k–$121k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Database Administrator</h5>
+            <div class="meta">DataCorp • Melbourne • Full-time</div>
+            <p class="job-desc">Manage and optimise databases (MySQL, PostgreSQL, MongoDB). Ensure uptime, security, and
+              performance through backup strategies and tuning.</p>
+            <div class="apply">
+              <div class="tag">$73k–$90k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Product Manager (Tech)</h5>
+            <div class="meta">InnovateTech • Boston • Full-time</div>
+            <p class="job-desc">Define product vision and roadmap. Work with engineering, design, and marketing to build
+              products that delight users and solve real problems.</p>
+            <div class="apply">
+              <div class="tag">$130k–$160k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Technical Writer</h5>
+            <div class="meta">DocHub • Portland • Remote</div>
+            <p class="job-desc">Create clear, concise technical documentation for APIs, SDKs, and products. Collaborate
+              with engineers to ensure accuracy and usability.</p>
+            <div class="apply">
+              <div class="tag">$70k–$85k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Software Architect</h5>
+            <div class="meta">TechLeads • Stockholm • Full-time</div>
+            <p class="job-desc">Design scalable system architectures and establish technical standards. Lead
+              architectural decisions across teams and mentor junior engineers.</p>
+            <div class="apply">
+              <div class="tag">$122k–$155k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Network Engineer</h5>
+            <div class="meta">NetworX • Chicago • Full-time</div>
+            <p class="job-desc">Design, implement, and maintain robust network infrastructure. Troubleshoot connectivity
+              issues and optimize network performance.</p>
+            <div class="apply">
+              <div class="tag">$95k–$120k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Embedded Systems Engineer</h5>
+            <div class="meta">HardwareTech • Munich • Full-time</div>
+            <p class="job-desc">Develop firmware and embedded software for IoT and hardware devices. Work with
+              microcontrollers, real-time systems, and low-level protocols.</p>
+            <div class="apply">
+              <div class="tag">$94k–$116k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Game Developer</h5>
+            <div class="meta">PlayStudio • Vancouver • Full-time</div>
+            <p class="job-desc">Develop engaging games using Unity or Unreal Engine. Collaborate with designers and
+              artists to create immersive gaming experiences.</p>
+            <div class="apply">
+              <div class="tag">$67k–$92k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Data Scientist</h5>
+            <div class="meta">InsightCorp • Paris • Full-time</div>
+            <p class="job-desc">Build predictive models and extract insights from complex datasets. Apply statistical
+              methods and machine learning to drive business decisions.</p>
+            <div class="apply">
+              <div class="tag">$105k–$133k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Performance Engineer</h5>
+            <div class="meta">SpeedCorp • Seattle • Remote</div>
+            <p class="job-desc">Optimize application performance through profiling and analysis. Identify bottlenecks
+              and implement solutions for high-throughput systems.</p>
+            <div class="apply">
+              <div class="tag">$105k–$135k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Release Manager</h5>
+            <div class="meta">DeployHub • Dublin • Full-time</div>
+            <p class="job-desc">Manage release cycles and coordinate deployments across environments. Ensure smooth
+              product releases with minimal downtime.</p>
+            <div class="apply">
+              <div class="tag">$83k–$105k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Backend Engineer (Golang)</h5>
+            <div class="meta">CoreTech • Bangalore • Full-time</div>
+            <p class="job-desc">Build high-performance microservices in Go. Design efficient APIs and databases to
+              support millions of concurrent users.</p>
+            <div class="apply">
+              <div class="tag">$54k–$78k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Platform Engineer</h5>
+            <div class="meta">CloudScale • Toronto • Full-time</div>
+            <p class="job-desc">Build internal developer platforms and tools. Improve developer experience and enable
+              self-service infrastructure deployment.</p>
+            <div class="apply">
+              <div class="tag">$81k–$103k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>DevOps Engineer</h5>
+            <div class="meta">InfraFlow • Austin • Remote</div>
+            <p class="job-desc">Manage containerized applications and Kubernetes clusters. Implement infrastructure
+              automation and monitoring solutions.</p>
+            <div class="apply">
+              <div class="tag">$100k–$130k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Frontend Engineer (React Native)</h5>
+            <div class="meta">MobileFirst • Sydney • Full-time</div>
+            <p class="job-desc">Build cross-platform mobile applications using React Native. Create responsive,
+              intuitive interfaces for iOS and Android.</p>
+            <div class="apply">
+              <div class="tag">$66k–$86k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Infrastructure Engineer</h5>
+            <div class="meta">BuildStack • Amsterdam • Full-time</div>
+            <p class="job-desc">Architect and maintain cloud infrastructure. Implement disaster recovery, backup
+              strategies, and infrastructure-as-code.</p>
+            <div class="apply">
+              <div class="tag">$111k–$144k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="jobs-grid">
+          <div class="job">
+            <h5>Security Engineer</h5>
+            <div class="meta">SecureOne • Singapore • Full-time</div>
+            <p class="job-desc">Design and implement security controls across infrastructure. Conduct security audits
+              and develop threat mitigation strategies.</p>
+            <div class="apply">
+              <div class="tag">$111k–$148k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Frontend Engineer (Vue.js)</h5>
+            <div class="meta">WebFlow • Copenhagen • Full-time</div>
+            <p class="job-desc">Develop interactive web applications using Vue.js. Focus on component design, state
+              management, and user experience.</p>
+            <div class="apply">
+              <div class="tag">$80k–$100k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+
+          <div class="job">
+            <h5>Systems Engineer</h5>
+            <div class="meta">OpsTeam • Mumbai • Full-time</div>
+            <p class="job-desc">Design and maintain large-scale systems. Ensure reliability, scalability, and security
+              across production environments.</p>
+            <div class="apply">
+              <div class="tag">$60k–$90k</div>
+              <a class="btn btn-primary" href="#apply">Apply</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>About Vertex</h4>
+        <p>Vertex is a specialist technology talent partner connecting ambitious companies with top engineering
+          talent.</p>
+        <div class="social-links">
+          <a href="#" class="social-icon">LinkedIn</a>
+          <a href="#" class="social-icon">Twitter</a>
+          <a href="#" class="social-icon">GitHub</a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="vertex.html">For Job Seekers</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#services">Our Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#">Permanent Placement</a></li>
+          <li><a href="#">Contract Staffing</a></li>
+          <li><a href="#">Executive Search</a></li>
+          <li><a href="#">Team Augmentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:hello@vertex.com">hello@vertex.com</a></li>
+          <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+          <li>Leigh, 15 Roman Rd</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Vertex. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

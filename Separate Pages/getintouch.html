@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get in Touch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --bg: #070707;
+            --panel: #0f0f0f;
+            --muted: #a6a6a6;
+            --accent: #f11313;
+            --accent-hover: #f53c3c;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-2: rgba(255, 255, 255, 0.04);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        html,
+        body {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(100px);
+            border-radius: 16px;
+            margin: 20px;
+            position: static;
+        } */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .image {
+            width: 80px;
+            height: 48px;
+            border-radius: 12px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: glow 2s infinite;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(100px);
+            border-radius: 16px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        nav a {
+            color: #a6a6a6;
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav .list:hover {
+            border-bottom: #fff 2px solid;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .active {
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .auth-buttons {
+            margin-right: 10px;
+        }
+
+        .login-btn {
+            display: inline-block;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 12px 16px;
+            background: #fff;
+            color: var(--accent);
+            font-weight: 600;
+            /* animate only transform for better performance and predictable behavior */
+            transition: transform 0.3s ease;
+            /* hint to the browser this will change, for smoother animations */
+            /* will-change: transform; */
+        }
+
+        .login-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .signup-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            transform: scale(1.1);
+        }
+
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            margin-bottom: 40px;
+        }
+
+        .process {
+            padding: 80px 40px;
+            background: linear-gradient(180deg, transparent, rgba(241, 19, 19, 0.03));
+            border-radius: 20px;
+            margin: 80px 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .step {
+            background: var(--panel);
+            border: 1px solid rgba(241, 19, 19, 0.1);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), #fa0808);
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .process {
+            padding: 80px 40px;
+            background: linear-gradient(180deg, transparent, rgba(241, 19, 19, 0.03));
+            border-radius: 20px;
+            margin: 80px 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .step {
+            background: var(--panel);
+            border: 1px solid rgba(241, 19, 19, 0.1);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), #fa0808);
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .section-header p {
+            margin-bottom: 40px;
+        }
+
+        /* Get in Touch */
+        .contact-section .lead {
+            margin-bottom: 24px;
+            color: var(--muted);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .contact-form-wrapper {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.18s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(166, 166, 166, 0.6);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(241, 19, 19, 0.1);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 16px;
+            border-radius: 10px;
+        }
+
+        .info-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .info-card h4 {
+            margin: 0 0 8px 0;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .info-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .contact-link {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.18s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            display: inline-block;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            transition: background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .social-icon:hover {
+            background: rgba(241, 19, 19, 0.1);
+            border-color: var(--accent);
+        }
+
+        .btn.find-hire {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn.find-hire:hover {
+            background: var(--accent-hover);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer {
+            background: linear-gradient(180deg, var(--panel), var(--bg));
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 80px;
+            padding: 60px 20px 30px;
+            color: var(--muted);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: var(--muted);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="main-container">
+        <div class="logo">
+            <a href="vertex-home.html">
+                <img class="image" src="Vertex/Separate Pages/images/Vertex logo Concepts Bis choice.jpg"
+                    alt="Vertex Logo" />
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="vertex.html" class="list">Home</a></li>
+            <li><a href="jobseekers.html" class="list">Jobs Seekers</a></li>
+            <li><a class="list" href="#employers">Employers</a></li>
+            <li><a class="list" href="#about">About Us</a></li>
+            <li><a class="active" href="getintouch.html">Get in Touch</a></li>
+            <li><a class="list" href="findjobs.html">Find Jobs</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="sign-in.html" class="btn login-btn">Sign In</a>
+            <a href="register.html" class="btn signup-btn">Register</a>
+        </div>
+    </nav>
+    </header>
+    <main class="main-container">
+        <section class="process">
+            <div class="section-header">
+                <h2>Our Proven Process</h2>
+                <p>From discovery to onboarding structured, transparent, and fast</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Discovery</h3>
+                    <p>We start with an in-depth conversation to understand your role requirements, team culture, and
+                        business goals.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Sourcing</h3>
+                    <p>Our specialists tap our network and databases to identify candidates with the right technical
+                        skills and cultural fit.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Screening & Assessment</h3>
+                    <p>Technical evaluation, interviews, and skills assessment ensure every candidate meets your
+                        standards.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Presentation</h3>
+                    <p>We deliver a curated shortlist of top candidates, ready for your interviews—no filler candidates.
+                    </p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Negotiation & Offer</h3>
+                    <p>We handle offer management, negotiation, and closure to ensure smooth transitions for both
+                        parties.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>Onboarding & Support</h3>
+                    <p>We remain engaged through onboarding and beyond, ensuring the hire is successful and lasting.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <h3>Follow-up & Analytics</h3>
+                    <p>We monitor placement outcomes and share performance insights to improve future hiring.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">8</div>
+                    <h3>Continuous Improvement</h3>
+                    <p>We collect feedback and refine our process to deliver better results each time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get in Touch Section -->
+        <section id="get-in-touch" class="section contact-section">
+            <div class="container">
+                <h3 id="contact-heading">Get in Touch</h3>
+                <p class="lead">Whether you're hiring or job hunting, we're here to help. Reach out and let's start a
+                    conversation.</p>
+
+                <div class="contact-grid">
+                    <div class="contact-form-wrapper">
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="4"
+                                    placeholder="Tell us what you're looking for..."></textarea>
+                            </div>
+                            <button type="submit" class="btn find-hire">Send Message</button>
+                        </form>
+                    </div>
+
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <div class="info-icon">📍</div>
+                            <h4>Office</h4>
+                            <p>London, UK<br>Leigh, 15 Roman Rd<br>Remote First</p>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">📧</div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:hello@vertex.io" class="contact-link">hello@vertex.io</a><br><a
+                                    href="mailto:jobs@vertex.io" class="contact-link">jobs@vertex.io</a></p>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">⏰</div>
+                            <h4>Response Time</h4>
+                            <p>We typically respond within 24 hours. For urgent matters, call us.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">🤝</div>
+                            <h4>Let's Connect</h4>
+                            <p>Follow us on social media for job updates and industry insights.</p>
+                            <div class="social-links">
+                                <a href="#" class="social-icon">LinkedIn</a>
+                                <a href="#" class="social-icon">Twitter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Vertex</h4>
+                <p>Vertex is a specialist technology talent partner connecting ambitious companies with top engineering
+                    talent.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">LinkedIn</a>
+                    <a href="#" class="social-icon">Twitter</a>
+                    <a href="#" class="social-icon">GitHub</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="vertex.html">For Job Seekers</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Permanent Placement</a></li>
+                    <li><a href="#">Contract Staffing</a></li>
+                    <li><a href="#">Executive Search</a></li>
+                    <li><a href="#">Team Augmentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello@vertex.com">hello@vertex.com</a></li>
+                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    <li>Leigh, 15 Roman Rd</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vertex. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

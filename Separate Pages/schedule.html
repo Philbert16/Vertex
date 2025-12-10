@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule a Call</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #0f0f0f;
+            --muted: #a6a6a6;
+            --accent: #f11313;
+            --glass: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: Inter, Arial, Helvetica, sans-serif
+        }
+
+        body {
+            background: linear-gradient(180deg, var(--bg), #0b0b0b);
+            color: #fff;
+            margin: 0;
+            padding: 20px
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto
+        }
+
+        header {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            margin-bottom: 18px
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px
+        }
+
+        .logo img {
+            width: 92px;
+            height: 50px;
+            border-radius: 10px
+        }
+
+        ul.nav-links {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        ul.nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px
+        }
+
+        ul.nav-links a.active {
+            background: var(--accent);
+            color: #fff
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 28px;
+            align-items: start
+        }
+
+        @media(max-width:900px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .logo img {
+                width: 72px
+            }
+        }
+
+        /* Calendar */
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.04)
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px
+        }
+
+        .month-title {
+            font-weight: 700;
+            font-size: 18px
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--muted);
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px
+        }
+
+        .day-name {
+            font-size: 12px;
+            color: var(--muted);
+            text-align: center
+        }
+
+        .day {
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer
+        }
+
+        .day:hover {
+            background: rgba(255, 255, 255, 0.03)
+        }
+
+        .day.disabled {
+            opacity: 0.25;
+            cursor: not-allowed
+        }
+
+        .day.selected {
+            background: var(--accent);
+            color: #fff
+        }
+
+        /* Booking form */
+        form .field {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px
+        }
+
+        label {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 6px
+        }
+
+        input[type=text],
+        input[type=email],
+        textarea,
+        select {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff
+        }
+
+        textarea {
+            min-height: 110px
+        }
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .slot {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            color: var(--muted)
+        }
+
+        .slot.selected {
+            background: #fff;
+            color: var(--accent);
+            font-weight: 600
+        }
+
+        .submit {
+            background: var(--accent);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%
+        }
+
+        .note {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 6px
+        }
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, var(--panel), var(--bg));
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 80px;
+            padding: 60px 20px 30px;
+            color: var(--muted);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: var(--muted);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links li {
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .footer-legal {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                margin-top: 40px;
+                padding: 40px 20px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="main-container">
+            <div class="logo"><a href="vertex-home.html"><img
+                        src="/Vertex/Separate Pages/images/Vertex logo Concepts Bis choice.jpg" alt="Vertex"></a></div>
+            <ul class="nav-links">
+                <li><a href="vertex.html">Home</a></li>
+                <li><a href="jobseekers.html">Job Seekers</a></li>
+                <li><a href="getintouch.html">Get in Touch</a></li>
+                <li><a href="findjobs.html">Find Jobs</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <h1 style="margin-bottom:12px">Schedule a Call</h1>
+        <p style="color:var(--muted);margin-bottom:18px">Choose a date and time below to book a quick consultation with
+            our team.</p>
+
+        <div class="grid">
+            <section class="card" aria-label="Calendar">
+                <div class="calendar-header">
+                    <button class="btn" id="prevBtn" aria-label="Previous month">‹</button>
+                    <div class="month-title" id="monthTitle">Month Year</div>
+                    <button class="btn" id="nextBtn" aria-label="Next month">›</button>
+                </div>
+
+                <div class="days" id="dayNames">
+                    <div class="day-name">Sun</div>
+                    <div class="day-name">Mon</div>
+                    <div class="day-name">Tue</div>
+                    <div class="day-name">Wed</div>
+                    <div class="day-name">Thu</div>
+                    <div class="day-name">Fri</div>
+                    <div class="day-name">Sat</div>
+                </div>
+                <div class="days" id="calendar"></div>
+                <div class="note">Only future dates are selectable. Times are local to your device.</div>
+            </section>
+
+            <aside class="card">
+                <h3 style="margin-top:0">Your Booking</h3>
+                <form id="bookingForm" onsubmit="submitBooking(event)">
+                    <div class="field">
+                        <label for="date">Selected Date</label>
+                        <input type="text" id="date" name="date" readonly
+                            placeholder="Select a date from the calendar" />
+                    </div>
+
+                    <div class="field">
+                        <label>Available Times</label>
+                        <div class="time-slots" id="timeSlots">
+                            <!-- slots are injected here -->
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="name">Full name</label>
+                        <input type="text" id="name" name="name" required placeholder="Jane Doe" />
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="you@company.com" />
+                    </div>
+
+                    <div class="field">
+                        <label for="notes">Notes (optional)</label>
+                        <textarea id="notes" name="notes" placeholder="Anything you'd like us to know"></textarea>
+                    </div>
+
+                    <button class="submit" type="submit">Request Booking</button>
+                    <div id="status" class="note" style="margin-top:10px"></div>
+                </form>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h4>About Vertex</h4>
+                    <p>Vertex is a specialist technology talent partner connecting ambitious companies with top
+                        engineering talent.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">LinkedIn</a>
+                        <a href="#" class="social-icon">Twitter</a>
+                        <a href="#" class="social-icon">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#jobs">Jobs Seekers</a></li>
+                        <li><a href="#employers">Employers</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#get-in-touch">Get in Touch</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Executive Search</a></li>
+                        <li><a href="#">Contract Staffing</a></li>
+                        <li><a href="#">Permanent Placement</a></li>
+                        <li><a href="#">Talent Development</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:hello@vertex.com">hello@vertex.com</a></li>
+                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                        <li>Leigh, 15 Roman Rd</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Vertex. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </footer>
+
+
+    <script>
+        // Simple calendar and booking UI
+        const calendarEl = document.getElementById('calendar');
+        const monthTitle = document.getElementById('monthTitle');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dateInput = document.getElementById('date');
+        const timeSlotsEl = document.getElementById('timeSlots');
+        const statusEl = document.getElementById('status');
+
+        let selectedDate = null;
+        let selectedTime = null;
+        let view = new Date();
+
+        function renderCalendar() {
+            calendarEl.innerHTML = '';
+            const year = view.getFullYear();
+            const month = view.getMonth();
+            monthTitle.textContent = view.toLocaleString(undefined, { month: 'long', year: 'numeric' });
+
+            const first = new Date(year, month, 1);
+            const startDay = first.getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // fill blanks
+            for (let i = 0; i < startDay; i++) {
+                const blank = document.createElement('div');
+                blank.className = 'day disabled';
+                calendarEl.appendChild(blank);
+            }
+
+            const today = new Date();
+            for (let d = 1; d <= daysInMonth; d++) {
+                const day = document.createElement('div');
+                day.className = 'day';
+                day.textContent = d;
+                const dt = new Date(year, month, d);
+                if (dt.setHours(0, 0, 0, 0) < new Date(today.getFullYear(), today.getMonth(), today.getDate()).setHours(0, 0, 0, 0)) {
+                    day.classList.add('disabled');
+                } else {
+                    day.addEventListener('click', () => selectDate(dt, d, day));
+                }
+                // highlight if selected
+                if (selectedDate && dt.toDateString() === selectedDate.toDateString()) {
+                    day.classList.add('selected');
+                }
+                calendarEl.appendChild(day);
+            }
+        }
+
+        function selectDate(dt, dayNumber, el) {
+            // clear previous selected
+            const prev = calendarEl.querySelector('.day.selected');
+            if (prev) prev.classList.remove('selected');
+            el.classList.add('selected');
+            selectedDate = dt;
+            dateInput.value = dt.toDateString();
+            generateTimeSlots(dt);
+            statusEl.textContent = '';
+        }
+
+        function generateTimeSlots(dt) {
+            timeSlotsEl.innerHTML = '';
+            // example slots: 09:00 - 16:00 every hour
+            const hours = [9, 10, 11, 13, 14, 15, 16];
+            hours.forEach(h => {
+                const slot = document.createElement('div');
+                slot.className = 'slot';
+                const label = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), h, 0).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                slot.textContent = label;
+                slot.addEventListener('click', () => selectTime(slot, label));
+                timeSlotsEl.appendChild(slot);
+            });
+        }
+
+        function selectTime(el, label) {
+            const prev = timeSlotsEl.querySelector('.slot.selected');
+            if (prev) prev.classList.remove('selected');
+            el.classList.add('selected');
+            selectedTime = label;
+        }
+
+        prevBtn.addEventListener('click', () => { view.setMonth(view.getMonth() - 1); renderCalendar(); });
+        nextBtn.addEventListener('click', () => { view.setMonth(view.getMonth() + 1); renderCalendar(); });
+
+        function submitBooking(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+            if (!selectedDate) { statusEl.textContent = 'Please select a date.'; return }
+            if (!selectedTime) { statusEl.textContent = 'Please select a time slot.'; return }
+
+            // Here you'd send to your server. For now we simulate success.
+            const payload = { name, email, date: selectedDate.toISOString().split('T')[0], time: selectedTime, notes };
+            console.log('Booking payload', payload);
+            statusEl.textContent = 'Booking request sent — we will email you to confirm.';
+            // visual feedback
+            setTimeout(() => {
+                document.getElementById('bookingForm').reset();
+                selectedDate = null; selectedTime = null; dateInput.value = ''; timeSlotsEl.innerHTML = '';
+                renderCalendar();
+            }, 1200);
+        }
+
+        // init
+        renderCalendar();
+    </script>
+</body>
+
+</html>
