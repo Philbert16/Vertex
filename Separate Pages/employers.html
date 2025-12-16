@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        html,
+        body {
+            /* height: 100%; */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
+            color: white;
+            padding: 20px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        :root {
+            --bg: #070707;
+            --panel: #0f0f0f;
+            --muted: #a6a6a6;
+            --accent: #f11313;
+            --accent-hover: #f53c3c;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-2: rgba(255, 255, 255, 0.04);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --gradient: linear-gradient(135deg, var(--accent)), #fa0808;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px #f11313;
+            }
+
+            50% {
+                box-shadow: 0 0 30px #f53c3c;
+            }
+        }
+
+        .image {
+            width: 80px;
+            height: 48px;
+            border-radius: 12px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: glow 2s infinite;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(100px);
+            border-radius: 16px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        nav a {
+            color: #a6a6a6;
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav .list:hover {
+            border-bottom: #fff 2px solid;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .active {
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .auth-buttons {
+            margin-right: 10px;
+            gap: 30px;
+        }
+
+        .login.btn {
+            display: inline-block;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 12px 16px;
+            background: #fff;
+            color: var(--accent);
+            font-weight: 600;
+            /* animate only transform for better performance and predictable behavior */
+            transition: transform 0.3s ease;
+            /* hint to the browser this will change, for smoother animations */
+            /* will-change: transform; */
+        }
+
+        .login.btn:hover {
+            transform: scale(1.1);
+        }
+
+        .signup-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Employers Section */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .employers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .employer-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            padding: 28px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .employer-card:hover {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(241, 19, 19, 0.15);
+        }
+
+        .employer-header {
+            margin-bottom: 12px;
+        }
+
+        .employer-header h3 {
+            font-size: 22px;
+            margin: 0 0 8px 0;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .location {
+            font-size: 13px;
+            color: var(--muted);
+            display: block;
+        }
+
+        .employer-desc {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .open-positions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .position-tag {
+            background: rgba(241, 19, 19, 0.1);
+            color: var(--accent);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(241, 19, 19, 0.2);
+        }
+
+        .view-jobs {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .view-jobs:hover {
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(241, 19, 19, 0.1), rgba(255, 255, 255, 0.02));
+            border-radius: 16px;
+            border: 1px solid rgba(241, 19, 19, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            color: var(--muted);
+            font-size: 18px;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(241, 19, 19, 0.4);
+        }
+
+        @media (max-width: 1024px) {
+            .employers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .employers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            main {
+                padding: 20px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .employers-grid {
+                gap: 16px;
+            }
+
+            .employer-card {
+                padding: 20px;
+            }
+
+            .cta-section {
+                padding: 40px 20px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, var(--panel), var(--bg));
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 80px;
+            padding: 60px 20px 30px;
+            color: var(--muted);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: var(--muted);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links li {
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .footer-legal {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                margin-top: 40px;
+                padding: 40px 20px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="main-container">
+            <div class="logo">
+                <a href="vertex-home.html">
+                    <img class="image" src="images/Vertex logo Concepts Bis choice.jpg" alt="Vertex Logo" />
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="vertex.html" class="list">Home</a></li>
+                <li><a href="jobseekers.html" class="list">Jobs Seekers</a></li>
+                <li><a class="active" href="#employers">Employers</a></li>
+                <li><a class="list" href="#about">About Us</a></li>
+                <li><a class="list" href="getintouch.html">Get in Touch</a></li>
+                <li><a class="list" href="morejobs.html">Find Jobs</a></li>
+            </ul>
+            <!-- <div class="auth-buttons">
+                <a href="sign-in.html" class="btn login element">Sign In</a>
+                <a href="sign-upreen.html" class="btn signup-btn">Register</a>
+            </div> -->
+        </nav>
+    </header>
+    <!-- Employers Section -->
+    <main>
+        <div class="hero">
+            <h1>Top Companies Hiring Now</h1>
+            <p>Explore leading tech companies actively recruiting talented engineers and tech professionals.</p>
+        </div>
+
+        <div class="employers-grid">
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>TechCorp</h3>
+                    <span class="location">📍 London, UK</span>
+                </div>
+                <p class="employer-desc">Enterprise software solutions and cloud infrastructure services.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Senior Frontend Engineer</span>
+                    <span class="position-tag">Senior Backend Engineer</span>
+                    <span class="position-tag">DevOps Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>FinServe</h3>
+                    <span class="location">📍 Remote</span>
+                </div>
+                <p class="employer-desc">Financial technology and banking solutions for global enterprises.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Data Engineer</span>
+                    <span class="position-tag">Machine Learning Engineer</span>
+                    <span class="position-tag">Backend Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>CloudWorks</h3>
+                    <span class="location">📍 Accra, Ghana</span>
+                </div>
+                <p class="employer-desc">Cloud infrastructure and DevOps consulting for distributed teams.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Senior DevOps Engineer</span>
+                    <span class="position-tag">Site Reliability Engineer</span>
+                    <span class="position-tag">Cloud Architect</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>StartupHub</h3>
+                    <span class="location">📍 Berlin, Germany</span>
+                </div>
+                <p class="employer-desc">Innovative startup incubator with focus on web and mobile applications.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Full-Stack Engineer</span>
+                    <span class="position-tag">Frontend Engineer (React)</span>
+                    <span class="position-tag">Product Manager</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>EnterpriseCorp</h3>
+                    <span class="location">📍 New York, USA</span>
+                </div>
+                <p class="employer-desc">Large-scale enterprise software and infrastructure management.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Cloud Architect</span>
+                    <span class="position-tag">Solutions Architect</span>
+                    <span class="position-tag">Infrastructure Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>AppStudio</h3>
+                    <span class="location">📍 San Francisco, USA</span>
+                </div>
+                <p class="employer-desc">Mobile and web app development studio creating user-centric experiences.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Mobile App Developer (iOS/Android)</span>
+                    <span class="position-tag">Frontend Engineer (React Native)</span>
+                    <span class="position-tag">UX Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>TechConsult</h3>
+                    <span class="location">📍 Singapore</span>
+                </div>
+                <p class="employer-desc">Technology consulting firm specializing in digital transformation.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Solutions Architect</span>
+                    <span class="position-tag">Business Analyst</span>
+                    <span class="position-tag">Systems Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>TestPro</h3>
+                    <span class="location">📍 Toronto, Canada</span>
+                </div>
+                <p class="employer-desc">QA automation and software testing services for enterprise clients.</p>
+                <div class="open-positions">
+                    <span class="position-tag">QA Automation Engineer</span>
+                    <span class="position-tag">QA Lead</span>
+                    <span class="position-tag">Test Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>SecureNet</h3>
+                    <span class="location">📍 Amsterdam, Netherlands</span>
+                </div>
+                <p class="employer-desc">Cybersecurity and infrastructure security solutions provider.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Cybersecurity Engineer</span>
+                    <span class="position-tag">Security Engineer</span>
+                    <span class="position-tag">Penetration Tester</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>DataCorp</h3>
+                    <span class="location">📍 Melbourne, Australia</span>
+                </div>
+                <p class="employer-desc">Big data analytics and data warehouse solutions for enterprises.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Database Administrator</span>
+                    <span class="position-tag">Data Scientist</span>
+                    <span class="position-tag">Data Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>InnovateTech</h3>
+                    <span class="location">📍 Boston, USA</span>
+                </div>
+                <p class="employer-desc">Product innovation lab building next-generation tech solutions.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Product Manager (Tech)</span>
+                    <span class="position-tag">Technical Product Manager</span>
+                    <span class="position-tag">Software Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>DocHub</h3>
+                    <span class="location">📍 Portland, USA (Remote)</span>
+                </div>
+                <p class="employer-desc">Technical documentation and knowledge management platform provider.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Technical Writer</span>
+                    <span class="position-tag">Developer Advocate</span>
+                    <span class="position-tag">Content Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>TechLeads</h3>
+                    <span class="location">📍 Stockholm, Sweden</span>
+                </div>
+                <p class="employer-desc">Senior engineering consulting and architecture services.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Software Architect</span>
+                    <span class="position-tag">Tech Lead</span>
+                    <span class="position-tag">Engineering Manager</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>NetworX</h3>
+                    <span class="location">📍 Chicago, USA</span>
+                </div>
+                <p class="employer-desc">Network infrastructure and telecommunications solutions.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Network Engineer</span>
+                    <span class="position-tag">Systems Administrator</span>
+                    <span class="position-tag">Infrastructure Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>HardwareTech</h3>
+                    <span class="location">📍 Munich, Germany</span>
+                </div>
+                <p class="employer-desc">IoT and embedded systems development for hardware manufacturers.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Embedded Systems Engineer</span>
+                    <span class="position-tag">Firmware Engineer</span>
+                    <span class="position-tag">IoT Developer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>PlayStudio</h3>
+                    <span class="location">📍 Vancouver, Canada</span>
+                </div>
+                <p class="employer-desc">Game development and interactive entertainment studio.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Game Developer</span>
+                    <span class="position-tag">Game Programmer</span>
+                    <span class="position-tag">Engine Developer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>InsightCorp</h3>
+                    <span class="location">📍 Paris, France</span>
+                </div>
+                <p class="employer-desc">AI and machine learning research lab for enterprise solutions.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Data Scientist</span>
+                    <span class="position-tag">ML Engineer</span>
+                    <span class="position-tag">AI Researcher</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>SpeedCorp</h3>
+                    <span class="location">📍 Seattle, USA (Remote)</span>
+                </div>
+                <p class="employer-desc">Performance optimization and high-scale systems engineering.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Performance Engineer</span>
+                    <span class="position-tag">Systems Performance Specialist</span>
+                    <span class="position-tag">Backend Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+
+            <div class="employer-card">
+                <div class="employer-header">
+                    <h3>DeployHub</h3>
+                    <span class="location">📍 Dublin, Ireland</span>
+                </div>
+                <p class="employer-desc">CI/CD and deployment automation platform provider.</p>
+                <div class="open-positions">
+                    <span class="position-tag">Release Manager</span>
+                    <span class="position-tag">DevOps Engineer</span>
+                    <span class="position-tag">Platform Engineer</span>
+                </div>
+                <a href="morejobs.html" class="view-jobs">View Openings →</a>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Looking to Hire?</h2>
+            <p>Post your job openings and connect with top tech talent through Vertex.</p>
+            <a href="getintouch.html" class="btn-primary">Post a Job</a>
+        </div>
+    </main> <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Vertex</h4>
+                <p>Vertex is a specialist technology talent partner connecting ambitious companies with top
+                    engineering talent.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">LinkedIn</a>
+                    <a href="#" class="social-icon">Twitter</a>
+                    <a href="#" class="social-icon">GitHub</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#jobs">Jobs Seekers</a></li>
+                    <li><a href="#employers">Employers</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#get-in-touch">Get in Touch</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Executive Search</a></li>
+                    <li><a href="#">Contract Staffing</a></li>
+                    <li><a href="#">Permanent Placement</a></li>
+                    <li><a href="#">Talent Development</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello@vertex.com">hello@vertex.com</a></li>
+                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    <li>Leigh, 15 Roman Rd</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vertex. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
