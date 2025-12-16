@@ -1,513 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job | Seekers</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job | Seekers</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-        :root {
-            --bg: #070707;
-            --panel: #0f0f0f;
-            --muted: #a6a6a6;
-            --accent: #f11313;
-            --accent-hover: #f53c3c;
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-2: rgba(255, 255, 255, 0.04);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        }
+    :root {
+      --bg: #070707;
+      --panel: #0f0f0f;
+      --muted: #a6a6a6;
+      --accent: #f11313;
+      --accent-hover: #f53c3c;
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-2: rgba(255, 255, 255, 0.04);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
 
-        html,
-        body {
-            scroll-behavior: smooth;
-        }
+    html,
+    body {
+      scroll-behavior: smooth;
+    }
 
-        body {
-            background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
-            color: white;
-            overflow-x: hidden;
-        }
-        .image {
-            width: 80px;
-            height: 48px;
-            border-radius: 12px;
-            margin-left: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: glow 2s infinite;
-        }
+    body {
+      background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
+      color: white;
+      overflow-x: hidden;
+    }
 
-   header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--glass);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(100px);
-  border-radius: 16px;
-}
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  animation: slideUp 0.8s ease-out;
-}
-nav a {
-  color: #a6a6a6;
-  text-decoration: none;
-  padding: 12px 16px;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  font-size: 14px;
-}
-ul {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  list-style: none;
-}
+    .image {
+      width: 80px;
+      height: 48px;
+      border-radius: 12px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: glow 2s infinite;
+    }
 
-nav .list:hover {
-  border-bottom: #fff 2px solid;
-  color: #fff;
-  transform: translateY(-2px);
-}
-.active {
-  transform: translateY(-2px);
-}
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-nav a.active {
-  background: var(--accent);
-  color: #fff;
-  transform: translateY(-2px);
-}
-.auth-buttons {
-  margin-right: 10px;
-}
-        .image {
-  width: 80px;
-  height: 48px;
-  border-radius: 12px;
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: glow 2s infinite;
-}
-.login-btn {
-            display: inline-block;
-            border: 2px solid var(--accent);
-            border-radius: 12px;
-            padding: 12px 16px;
-            background: #fff;
-            color: var(--accent);
-            font-weight: 600;
-            /* animate only transform for better performance and predictable behavior */
-            transition: transform 0.3s ease;
-            /* hint to the browser this will change, for smoother animations */
-            /* will-change: transform; */
-        }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(100px);
+      border-radius: 16px;
+    }
 
-        .login-btn:hover {
-            transform: scale(1.1);
-        }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      animation: slideUp 0.8s ease-out;
+      margin: 10px auto;
+    }
 
-        .signup-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: #fff;
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-weight: 600;
-            transition: transform 0.3s ease;
-        }
+    nav a {
+      color: #a6a6a6;
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 14px;
+    }
 
-        .signup-btn:hover {
-            transform: scale(1.1);
-        }
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
 
-        main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            margin-top: 40px;
-        }
+    nav .list:hover {
+      border-bottom: #fff 2px solid;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .active {
+      transform: translateY(-2px);
+    }
+
+    nav a.active {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .auth-buttons {
+      margin-right: 10px;
+    }
+
+    .image {
+      width: 80px;
+      height: 48px;
+      border-radius: 12px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: glow 2s infinite;
+    }
+
+    .login-btn {
+      display: inline-block;
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: #fff;
+      color: var(--accent);
+      font-weight: 600;
+      /* animate only transform for better performance and predictable behavior */
+      transition: transform 0.3s ease;
+      /* hint to the browser this will change, for smoother animations */
+      /* will-change: transform; */
+    }
+
+    .login-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .signup-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+    }
+
+    .signup-btn:hover {
+      transform: scale(1.1);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      margin-top: 40px;
+    }
 
 
-        .footer {
-            background: linear-gradient(180deg, var(--panel), var(--bg));
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 80px;
-            padding: 60px 20px 30px;
-            color: var(--muted);
-        }
+    .footer {
+      background: linear-gradient(180deg, var(--panel), var(--bg));
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 80px;
+      padding: 60px 20px 30px;
+      color: var(--muted);
+    }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
 
-        .footer-section h4 {
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    .footer-section h4 {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-        .footer-section p {
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 16px;
-            color: var(--muted);
-        }
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
 
-        .footer-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-        .footer-links a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            font-size: 14px;
-        }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-size: 14px;
+    }
 
-        .footer-links a:hover {
-            color: var(--accent);
-            transform: translateX(4px);
-        }
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateX(4px);
+    }
 
-        .social-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-        }
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
 
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 50%;
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .social-icon:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
+    .social-icon:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
 
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            font-size: 14px;
-            color: var(--muted);
-        }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
 
-        .footer-bottom p {
-            margin: 0;
-        }
+    .footer-bottom p {
+      margin: 0;
+    }
 
-        .footer-legal {
-            display: flex;
-            gap: 24px;
-        }
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
 
-        .footer-legal a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+    .footer-legal a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
 
-        .footer-legal a:hover {
-            color: var(--accent);
-        }
-/* Finding Jobs */
-.jobs-guide-section .lead {
-  margin-bottom: 24px;
-  color: var(--muted);
-}
+    .footer-legal a:hover {
+      color: var(--accent);
+    }
 
-.jobs-guide-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.guide-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 18px;
-  border-radius: 10px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  overflow: hidden;
-  /* word-wrap: break-word; */
-}
+    /* Finding Jobs */
+    .jobs-guide-section .lead {
+      margin-bottom: 24px;
+      color: var(--muted);
+    }
 
-.guide-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
-}
+    .jobs-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
 
-.guide-icon {
-  font-size: 28px;
-  display: block;
-  margin-bottom: 12px;
-}
+    .guide-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 18px;
+      border-radius: 10px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      overflow: hidden;
+      /* word-wrap: break-word; */
+    }
 
-.guide-card h4 {
-  margin: 0 0 8px 0;
-  color: #fff;
-  font-size: 16px;
-}
+    .guide-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+    }
 
-.guide-card p {
-  margin: 0 0 10px 0;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
+    .guide-icon {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 12px;
+    }
 
-.guide-tips {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+    .guide-card h4 {
+      margin: 0 0 8px 0;
+      color: #fff;
+      font-size: 16px;
+    }
 
-.guide-tips li {
-  color: var(--muted);
-  font-size: 13px;
-  padding: 4px 0 4px 16px;
-  position: relative;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
+    .guide-card p {
+      margin: 0 0 10px 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-.guide-tips li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: bold;
-}
+    .guide-tips {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-.guide-link {
-  display: inline-block;
-  margin-top: 10px;
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  transition: color 0.18s ease;
-}
+    .guide-tips li {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 4px 0 4px 16px;
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
 
-.guide-link:hover {
-  color: var(--accent-hover);
-  text-decoration: underline;
-}
+    .guide-tips li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
 
-.guide-link-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-}
+    .guide-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.18s ease;
+    }
 
-.guide-link-primary:hover {
-  color: #fff;
-  text-decoration: none;
-}
+    .guide-link:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
 
-@media (max-width: 768px) {
-  .jobs-guide-grid {
-    grid-template-columns: 1fr;
-  }
-}
+    .guide-link-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
 
-    </style>
+    .guide-link-primary:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .jobs-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <nav class="main-container">
-            <div class="logo">
-                <a href="vertex-home.html">
-                    <img class="image" src="images/Vertex logo Concepts Bis choice.jpg" alt="Vertex Logo" />
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="vertex.html" class="list">Home</a></li>
-                <li><a href="jobseekers.html" class="active">Jobs Seekers</a></li>
-                <li><a class="list" href="#employers">Employers</a></li>
-                <li><a class="list" href="#about">About Us</a></li>
-                <li><a class="list" href="getintouch.html">Get in Touch</a></li>
-                <li><a class="list" href="findjobs.html">Find Jobs</a></li>
-            </ul>
-            <div class="auth-buttons">
+  <header>
+    <nav class="main-container">
+      <div class="logo">
+        <a href="vertex-home.html">
+          <img class="image" src="images/Vertex logo Concepts Bis choice.jpg" alt="Vertex Logo" />
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="vertex.html" class="list">Home</a></li>
+        <li><a href="jobseekers.html" class="active">Jobs Seekers</a></li>
+        <li><a class="list" href="employers.html">Employers</a></li>
+        <li><a class="list" href="about">About Us</a></li>
+        <li><a class="list" href="getintouch.html">Get in Touch</a></li>
+        <li><a class="list" href="findjobs.html">Find Jobs</a></li>
+      </ul>
+      <!-- <div class="auth-buttons">
                 <a href="sign-in.html" class="btn login-btn">Sign In</a>
                 <a href="register.html" class="btn signup-btn">Register</a>
-            </div>
-        </nav>
-    </header>
-    <main>
-        <!-- Finding Jobs Section -->
-      <section id="finding-jobs" class="section jobs-guide-section">
-        <div class="container">
-          <h3 id="jobs-guide-heading">Finding Your Next Role</h3>
-          <p class="lead">Expert tips, resources, and insights to help you land your dream tech job at Vertex.</p>
+            </div> -->
+    </nav>
+  </header>
+  <main>
+    <!-- Finding Jobs Section -->
+    <section id="finding-jobs" class="section jobs-guide-section">
+      <div class="container">
+        <h3 id="jobs-guide-heading">Finding Your Next Role</h3>
+        <p class="lead">Expert tips, resources, and insights to help you land your dream tech job at Vertex.</p>
 
-          <div class="jobs-guide-grid">
-            <div class="guide-card">
-              <div class="guide-icon">📝</div>
-              <h4>Optimise Your Profile</h4>
-              <p>Keep your CV concise, highlight quantifiable achievements, and tailor it to tech roles. Use keywords
-                that match job descriptions.</p>
-              <ul class="guide-tips">
-                <li>2–3 pages max</li>
-                <li>Show impact (e.g., "reduced latency by 40%")</li>
-                <li>Include links to portfolio / GitHub</li>
-              </ul>
-            </div>
-
-            <div class="guide-card">
-              <div class="guide-icon">🔍</div>
-              <h4>Search & Apply</h4>
-              <p>Browse our latest vacancies, apply for roles that match your skills, and our team will review within 48
-                hours.</p>
-              <a href="findjobs.html" class="guide-link">Browse Vacancies →</a>
-            </div>
-
-            <div class="guide-card">
-              <div class="guide-icon">💬</div>
-              <h4>Prepare for Interviews</h4>
-              <p>Research the company, practice technical questions, and prepare thoughtful questions. We'll share
-                interview details in advance.</p>
-              <ul class="guide-tips">
-                <li>Use STAR method for behavioural Q's</li>
-                <li>Practice coding problems</li>
-                <li>Ask about team, culture, and growth</li>
-              </ul>
-            </div>
-
-            <div class="guide-card">
-              <div class="guide-icon">🎯</div>
-              <h4>Negotiate Confidently</h4>
-              <p>Understand your market value, research salary ranges, and don't hesitate to negotiate. We'll guide you
-                through the offer.</p>
-              <ul class="guide-tips">
-                <li>Know your baseline salary</li>
-                <li>Negotiate benefits + equity</li>
-                <li>Ask for time to decide</li>
-              </ul>
-            </div>
-
-            <div class="guide-card">
-              <div class="guide-icon">📚</div>
-              <h4>Tech Skills to Highlight</h4>
-              <p>Employers value: problem-solving, system design, cloud skills (AWS/Azure), and continuous learning.
-                Certifications help too.</p>
-              <ul class="guide-tips">
-                <li>Certifications (AWS, GCP, etc.)</li>
-                <li>Open source contributions</li>
-                <li>Blogging / public speaking</li>
-              </ul>
-            </div>
-
-            <div class="guide-card">
-              <div class="guide-icon">🚀</div>
-              <h4>Get Started Now</h4>
-              <p>Ready to find your next role? Create your profile, upload your CV, and start applying to tech jobs
-                today.</p>
-              <a href="register.html" class="guide-link guide-link-primary">Create Profile →</a>
-            </div>
+        <div class="jobs-guide-grid">
+          <div class="guide-card">
+            <div class="guide-icon">📝</div>
+            <h4>Optimise Your Profile</h4>
+            <p>Keep your CV concise, highlight quantifiable achievements, and tailor it to tech roles. Use keywords
+              that match job descriptions.</p>
+            <ul class="guide-tips">
+              <li>2–3 pages max</li>
+              <li>Show impact (e.g., "reduced latency by 40%")</li>
+              <li>Include links to portfolio / GitHub</li>
+            </ul>
           </div>
-      </section>
 
-    </main>
+          <div class="guide-card">
+            <div class="guide-icon">🔍</div>
+            <h4>Search & Apply</h4>
+            <p>Browse our latest vacancies, apply for roles that match your skills, and our team will review within 48
+              hours.</p>
+            <a href="findjobs.html" class="guide-link">Browse Vacancies →</a>
+          </div>
 
-<footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>About Vertex</h4>
-                <p>Vertex is a specialist technology talent partner connecting ambitious companies with top engineering
-                    talent.</p>
-                <div class="social-links">
-                    <a href="#" class="social-icon">LinkedIn</a>
-                    <a href="#" class="social-icon">Twitter</a>
-                    <a href="#" class="social-icon">GitHub</a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="vertex.html">For Job Seekers</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#services">Our Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Services</h4>
-                <ul class="footer-links">
-                    <li><a href="#">Permanent Placement</a></li>
-                    <li><a href="#">Contract Staffing</a></li>
-                    <li><a href="#">Executive Search</a></li>
-                    <li><a href="#">Team Augmentation</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <ul class="footer-links">
-                    <li><a href="mailto:hello@vertex.com">hello@vertex.com</a></li>
-                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
-                    <li>Leigh, 15 Roman Rd</li>
-                </ul>
-            </div>
+          <div class="guide-card">
+            <div class="guide-icon">💬</div>
+            <h4>Prepare for Interviews</h4>
+            <p>Research the company, practice technical questions, and prepare thoughtful questions. We'll share
+              interview details in advance.</p>
+            <ul class="guide-tips">
+              <li>Use STAR method for behavioural Q's</li>
+              <li>Practice coding problems</li>
+              <li>Ask about team, culture, and growth</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <div class="guide-icon">🎯</div>
+            <h4>Negotiate Confidently</h4>
+            <p>Understand your market value, research salary ranges, and don't hesitate to negotiate. We'll guide you
+              through the offer.</p>
+            <ul class="guide-tips">
+              <li>Know your baseline salary</li>
+              <li>Negotiate benefits + equity</li>
+              <li>Ask for time to decide</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <div class="guide-icon">📚</div>
+            <h4>Tech Skills to Highlight</h4>
+            <p>Employers value: problem-solving, system design, cloud skills (AWS/Azure), and continuous learning.
+              Certifications help too.</p>
+            <ul class="guide-tips">
+              <li>Certifications (AWS, GCP, etc.)</li>
+              <li>Open source contributions</li>
+              <li>Blogging / public speaking</li>
+            </ul>
+          </div>
+
+          <div class="guide-card">
+            <div class="guide-icon">🚀</div>
+            <h4>Get Started Now</h4>
+            <p>Ready to find your next role? Create your profile, upload your CV, and start applying to tech jobs
+              today.</p>
+            <a href="register.html" class="guide-link guide-link-primary">Create Profile →</a>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Vertex. All rights reserved.</p>
-            <div class="footer-legal">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookie Policy</a>
-            </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>About Vertex</h4>
+        <p>Vertex is a specialist technology talent partner connecting ambitious companies with top engineering
+          talent.</p>
+        <div class="social-links">
+          <a href="#" class="social-icon">LinkedIn</a>
+          <a href="#" class="social-icon">Twitter</a>
+          <a href="#" class="social-icon">GitHub</a>
         </div>
-    </footer>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="vertex.html">For Job Seekers</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#services">Our Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#">Permanent Placement</a></li>
+          <li><a href="#">Contract Staffing</a></li>
+          <li><a href="#">Executive Search</a></li>
+          <li><a href="#">Team Augmentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:hello@vertex.com">hello@vertex.com</a></li>
+          <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+          <li>Leigh, 15 Roman Rd</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Vertex. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
 
 </body>
+
 </html>
